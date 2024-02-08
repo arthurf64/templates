@@ -1,0 +1,18 @@
+{
+	"type": "module",
+	"scripts": {
+		"build": "rimraf dist & rollup -c",
+		"dev": "rimraf dist & rollup -c -w"
+	},
+	"devDependencies": {
+		"@rollup/plugin-run": "latest",
+		"@rollup/plugin-terser": "latest",
+		"@rollup/plugin-typescript": "latest",
+		"@types/node": "latest",
+		"rollup": "latest",
+		"rollup-plugin-dts": "latest",
+		"tslib": "latest",
+		"typescript": "latest",
+		"rimraf": "latest"
+	}
+}

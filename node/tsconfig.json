@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    // LIBRARY OPTIONS
+    "target": "esnext",
+    "module": "nodenext",
+    "lib": [
+      "esnext"
+    ],
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowUmdGlobalAccess": true,
+    "verbatimModuleSyntax": true,
+
+    // COMPILATION OPTIONS
+    "noEmitOnError": true,
+    "noEmit": true,
+
+    // DECORATOR OPTIONS
+    "experimentalDecorators": true,
+
+    // LINTING OPTIONS
+    "strict": true,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    
+    // PATH OPTIONS 
+    "paths": {
+      "@/*": [
+        "./src/*-mod.js",
+        "./src/*/mod.js"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ]
+}
