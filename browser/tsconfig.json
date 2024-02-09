@@ -2,11 +2,12 @@
   "compilerOptions": {
     // LIBRARY OPTIONS
     "target": "esnext",
-    "module": "nodenext",
+    "module": "esnext",
     "lib": [
-      "esnext"
+      "esnext",
+      "dom"
     ],
-    "moduleResolution": "nodenext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
