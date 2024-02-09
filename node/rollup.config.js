@@ -10,16 +10,10 @@ import prettier from "rollup-plugin-prettier";
 const EXTS = ["js", "ts", "jsx", "tsx", "mjs", "cjs", "mts", "cts"].join("|");
 const MAIN_REGEX = RegExp(`^main.(?:${EXTS})$`);
 
-const fromSrc = (...path) => {
-    return resolve(cwd(), "src", ...path);
-};
-const fromDist = (...path) => {
-    return resolve(cwd(), "dist", ...path);
-};
+const fromSrc = (...path) => resolve(cwd(), "src", ...path);;
+const fromDist = (...path) => resolve(cwd(), "dist", ...path);;
 
-const mainFile = () => {
-    return fromSrc(readdirSync(fromSrc()).filter((f) => MAIN_REGEX.test(f))[0]);
-};
+const mainFile = () => fromSrc(readdirSync(fromSrc()).filter((f) => MAIN_REGEX.test(f))[0]);
 
 const packageDependencies = () => {
     const PACKAGE = JSON.parse(readFileSync(resolve(cwd(), "package.json"), "utf-8"));
