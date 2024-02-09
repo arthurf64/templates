@@ -13,7 +13,8 @@ const MAIN_REGEX = RegExp(`^main.(?:${EXTS})$`);
 const fromSrc = (...path) => resolve(cwd(), "src", ...path);;
 const fromDist = (...path) => resolve(cwd(), "dist", ...path);;
 
-const mainFile = () => fromSrc(readdirSync(fromSrc()).filter((f) => MAIN_REGEX.test(f))[0]);
+const mainFile = () =>
+    fromSrc(readdirSync(fromSrc()).filter((f) => MAIN_REGEX.test(f))[0]);
 
 const WATCHING = process.env.ROLLUP_WATCH === "true";
 
@@ -45,7 +46,7 @@ export default [
         },
         watch: false,
         plugins: [
-            typescript(),
+            typescript({ noEmitOnError: WATCHING }),
             dts({ respectExternal: true }),
             prettier({
                 parser: "typescript",
