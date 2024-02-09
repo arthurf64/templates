@@ -5,6 +5,7 @@ import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 import run from "@rollup/plugin-run";
 import { dts } from "rollup-plugin-dts";
+import prettier from "rollup-plugin-prettier";
 
 const EXTS = ["js", "ts", "jsx", "tsx", "mjs", "cjs", "mts", "cts"].join("|");
 const MAIN_REGEX = RegExp(`^main.(?:${EXTS})$`);
@@ -42,19 +43,19 @@ export default [
     {
         input: mainFile(),
         output: {
-            file: fromDist("main.js"),
+            file: fromDist(WATCHING ? "main.dev.js" : "main.dist.js"),
             format: "esm"
         },
         plugins: [
-            typescript(),
-            terser({
+            typescript({ noEmitOnError: WATCHING }),
+            (!WATCHING) && terser({
                 keep_classnames: true,
                 keep_fnames: true
             }),
             WATCHING && run(),
         ],
         watch: {
-            include: [fromSrc() + "/**/*"],
+            include: fromSrc() + "/**/*",
         },
         external: DEPENDENCIES,
     },
@@ -64,12 +65,19 @@ export default [
             file: fromDist("main.d.ts"),
             format: "esm"
         },
-        watch: {
-            include: [fromSrc() + "/**/*"],
-        },
+        watch: false,
         plugins: [
             typescript(),
             dts({ respectExternal: true }),
+            prettier({
+                parser: "typescript",
+                printWidth: 115,
+                tabWidth: 4,
+                useTabs: true,
+                trailingComma: "es5",
+                bracketSameLine: true,
+                singleAttributePerLine: true,
+            }),
         ],
         external: DEPENDENCIES,
     }
