@@ -31,6 +31,17 @@ const DEPENDENCIES = [
     /^node:.*$/,
 ];
 
+/** @type {import("rollup-plugin-prettier").Options} */
+const PRETTIER_OPTIONS = {
+    parser: "typescript",
+    printWidth: 115,
+    tabWidth: 4,
+    useTabs: true,
+    trailingComma: "es5",
+    bracketSameLine: true,
+    singleAttributePerLine: true,
+};
+
 const WATCHING = process.env.ROLLUP_WATCH === "true";
 
 /** @type {import("rollup").RollupOptions[]} */
@@ -38,11 +49,12 @@ export default [
     {
         input: mainFile(),
         output: {
-            file: fromDist(WATCHING ? "main.dev.js" : "main.dist.js"),
+            file: fromDist(WATCHING ? "main.watch.js" : "main.dist.js"),
             format: "esm"
         },
         plugins: [
-            typescript({ noEmitOnError: WATCHING }),
+            typescript({ noEmitOnError: !(WATCHING) }),
+            WATCHING && prettier(PRETTIER_OPTIONS),
             (!WATCHING) && terser({
                 keep_classnames: true,
                 keep_fnames: true
@@ -62,17 +74,9 @@ export default [
         },
         watch: false,
         plugins: [
-            typescript({ noEmitOnError: WATCHING }),
+            typescript(),
             dts({ respectExternal: true }),
-            prettier({
-                parser: "typescript",
-                printWidth: 115,
-                tabWidth: 4,
-                useTabs: true,
-                trailingComma: "es5",
-                bracketSameLine: true,
-                singleAttributePerLine: true,
-            }),
+            prettier(PRETTIER_OPTIONS),
         ],
         external: DEPENDENCIES,
     }
