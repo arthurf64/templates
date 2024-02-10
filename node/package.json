@@ -1,8 +1,8 @@
 {
 	"type": "module",
 	"scripts": {
-		"build": "rollup -c",
-		"dev": "rollup -c -w"
+		"build": "rimraf dist & rollup -c",
+		"dev": "rimraf dist & rollup -c -w"
 	},
 	"devDependencies": {
 		"@rollup/plugin-run": "latest",
@@ -14,6 +14,7 @@
 		"tslib": "latest",
 		"typescript": "latest",
 		"prettier": "latest",
-		"rollup-plugin-prettier": "latest"
+		"rollup-plugin-prettier": "latest",
+		"rimraf": "latest"
 	}
 }
