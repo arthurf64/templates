@@ -5,16 +5,20 @@
 		"dev": "rimraf dist & rollup -c -w"
 	},
 	"devDependencies": {
+		"rimraf": "latest",
+		"rollup": "latest"
+	},
+	"peerDependencies": {
+		"@types/node": "latest",
+		"@rollup/plugin-commonjs": "latest",
+        "@rollup/plugin-node-resolve": "latest",
 		"@rollup/plugin-run": "latest",
 		"@rollup/plugin-terser": "latest",
 		"@rollup/plugin-typescript": "latest",
-		"@types/node": "latest",
 		"prettier": "latest",
-		"rollup": "latest",
 		"rollup-plugin-dts": "latest",
-		"rollup-plugin-prettier": "latest",
+        "rollup-plugin-prettier": "latest",
 		"tslib": "latest",
-		"typescript": "latest",
-		"rimraf": "latest"
+		"typescript": "latest"
 	}
 }

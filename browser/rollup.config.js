@@ -1,66 +1,7 @@
-import { readdirSync } from "node:fs";
-import { resolve } from "node:path";
-import { cwd } from "node:process";
-import typescript from "@rollup/plugin-typescript";
-import terser from "@rollup/plugin-terser";
-import run from "@rollup/plugin-run";
-import { dts } from "rollup-plugin-dts";
-import prettier from "rollup-plugin-prettier";
-
-const EXTS = ["js", "ts", "jsx", "tsx", "mjs", "cjs", "mts", "cts"].join("|");
-const MAIN_REGEX = RegExp(`^main.(?:${EXTS})$`);
-
-const fromSrc = (...path) => resolve(cwd(), "src", ...path);;
-const fromDist = (...path) => resolve(cwd(), "dist", ...path);;
-
-const mainFile = () =>
-    fromSrc(readdirSync(fromSrc()).filter((f) => MAIN_REGEX.test(f))[0]);
-
-const WATCHING = process.env.ROLLUP_WATCH === "true";
-
-/** @type {import("rollup-plugin-prettier").Options} */
-const PRETTIER_OPTIONS = {
-    parser: "typescript",
-    printWidth: 115,
-    tabWidth: 4,
-    useTabs: true,
-    trailingComma: "es5",
-    bracketSameLine: true,
-    singleAttributePerLine: true,
-};
+import { BUNDLE_OPTIONS, DECLARATION_OPTIONS } from "./build/utils.js";
 
 /** @type {import("rollup").RollupOptions[]} */
 export default [
-    {
-        input: mainFile(),
-        output: {
-            file: fromDist(WATCHING ? "main.watch.js" : "main.dist.js"),
-            format: "esm"
-        },
-        plugins: [
-            typescript({ noEmitOnError: !(WATCHING) }),
-            WATCHING && prettier(PRETTIER_OPTIONS),
-            (!WATCHING) && terser({
-                keep_classnames: true,
-                keep_fnames: true
-            }),
-            WATCHING && run(),
-        ],
-        watch: {
-            include: fromSrc() + "/**/*",
-        },
-    },
-    {
-        input: mainFile(),
-        output: {
-            file: fromDist("main.d.ts"),
-            format: "esm"
-        },
-        watch: false,
-        plugins: [
-            typescript(),
-            dts({ respectExternal: true }),
-            prettier(PRETTIER_OPTIONS),
-        ],
-    }
+    { ...BUNDLE_OPTIONS },
+    { ...DECLARATION_OPTIONS },
 ];
