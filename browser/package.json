@@ -9,7 +9,6 @@
 		"rollup": "latest"
 	},
 	"peerDependencies": {
-		"@types/node": "latest",
 		"@rollup/plugin-commonjs": "latest",
         "@rollup/plugin-node-resolve": "latest",
 		"@rollup/plugin-run": "latest",
