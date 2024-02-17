@@ -16,9 +16,6 @@
     // COMPILATION OPTIONS
     "noEmit": true,
 
-    // DECORATOR OPTIONS
-    "experimentalDecorators": true,
-
     // LINTING OPTIONS
     "strict": true,
     "allowUnreachableCode": false,
