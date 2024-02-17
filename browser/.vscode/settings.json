@@ -1,10 +1,19 @@
 {
     "editor.tabSize": 4,
     "editor.indentSize": "tabSize",
+    "files.exclude": {
+        ".*": true,
+        "build": true,
+        "node_modules": true,
+        "package-lock.json": true,
+        "yarn.lock": true,
+        "pnpm-lock.yaml": true,
+    },
     "material-icon-theme.files.associations": {
-        "build/utils.js": "Settings"
+        ".vscode/settings.json": "settings",
+        "build/utils.js": "settings"
     },
     "material-icon-theme.folders.associations": {
-        "build": "Config"
+        "build": "config"
     }
 }

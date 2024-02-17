@@ -5,16 +5,6 @@
 		"dev": "rimraf dist & rollup -c -w"
 	},
 	"devDependencies": {
-		"@rollup/plugin-run": "latest",
-		"@rollup/plugin-terser": "latest",
-		"@rollup/plugin-typescript": "latest",
-		"@types/node": "latest",
-		"rollup": "latest",
-		"rollup-plugin-dts": "latest",
-		"tslib": "latest",
-		"typescript": "latest",
-		"prettier": "latest",
-		"rollup-plugin-prettier": "latest",
-		"rimraf": "latest"
+		
 	}
 }

@@ -21,10 +21,12 @@ const MAIN_FILE = fromSrc(readdirSync(fromSrc())
     .filter((file) => MAIN_FILE_REGEX.test(file))
     .at(0));
 
-const DEPENDECIES = Object.keys(JSON.parse(readFileSync(fromCwd("package.json")))["dependencies"] ?? {});
+const DEPENDECIES = [
+    ...Object.keys(JSON.parse(readFileSync(fromCwd("package.json")))["dependencies"] ?? {}),
+    /^node:.*/,
+];
 
 const WATCHING = process.env["ROLLUP_WATCH"] === "true";
-const EXTERNAL_ENGINE = process.env["EXTERNAL_ENGINE"] === "true";
 
 /** @type {import("rollup-plugin-prettier").Options} */
 const PRETTIER_OPTIONS = {
@@ -48,17 +50,15 @@ const BUNDLE_OPTIONS = {
     plugins: [
         typescript({ noEmitOnError: !WATCHING }),
         commonjs(),
-        nodeResolve({ browser: true }),
+        nodeResolve(),
         WATCHING && prettier(PRETTIER_OPTIONS),
-        (WATCHING && !EXTERNAL_ENGINE) && run(),
+        WATCHING && run(),
         !WATCHING && terser({
             keep_classnames: true,
             keep_fnames: true,
         })
     ],
-    external: [
-        ...(WATCHING ? DEPENDECIES : [])
-    ],
+    external: DEPENDECIES,
 };
 
 /** @type {import("rollup").RollupOptions} */
@@ -75,7 +75,7 @@ const DECLARATION_OPTIONS = {
         dts({ respectExternal: true }),
         prettier(PRETTIER_OPTIONS),
     ],
-    external: [...DEPENDECIES],
+    external: DEPENDECIES,
 };
 
 export { BUNDLE_OPTIONS, DECLARATION_OPTIONS };

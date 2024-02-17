@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     // LIBRARY OPTIONS
-    "target": "esnext",
+    "target": "es6",
     "module": "esnext",
     "lib": [
       "esnext",
@@ -16,9 +16,6 @@
 
     // COMPILATION OPTIONS
     "noEmit": true,
-
-    // DECORATOR OPTIONS
-    "experimentalDecorators": true,
 
     // LINTING OPTIONS
     "strict": true,
